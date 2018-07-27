@@ -1,4 +1,6 @@
 export class Stock {
-  symbol: string;
-  price: number;
+  constructor(
+    public symbol: string,
+    public price: number,
+  ) {  }
 }

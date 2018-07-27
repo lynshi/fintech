@@ -14,7 +14,7 @@ export class PriceService {
   constructor(private http: HttpClient) { }
 
   getStockPrice(symbol: string) : Observable<Stock> {
-    return this.getStockPriceFromIEX(symbol).pipe(map(res => {
+    return this.getStockPriceFromIEX(symbol, '1d').pipe(map(res => {
       let stock : Stock;
       stock = {
         symbol: symbol,
@@ -24,8 +24,8 @@ export class PriceService {
     }));
   }
 
-  getStockPriceFromIEX(symbol: string) : Observable<any> {
-    return this.http.get(this.iexStockUrl + symbol + '/chart/1d')
+  getStockPriceFromIEX(symbol: string, interval: string) : Observable<any> {
+    return this.http.get(this.iexStockUrl + symbol + '/chart/' + interval)
       .pipe(
         retry(3),
         catchError(PriceService.handleError)

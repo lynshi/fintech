@@ -1,0 +1,6 @@
+<app-stock-selection-form
+  (stockSymbolSubmission)="onStockSymbolSubmitted($event)">
+</app-stock-selection-form>
+<app-price-display [stock]="stock" #priceDisplay
+  (gotStockPrice)="updateStock($event)">
+</app-price-display>
