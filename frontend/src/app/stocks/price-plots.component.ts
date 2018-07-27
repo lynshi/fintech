@@ -12,7 +12,7 @@ export class PricePlotsComponent implements OnInit {
 
   constructor(private priceService: PriceService) {
     this.stock = {
-      symbol: 'Stock Symbol',
+      symbol: 'MSFT',
       price: -1
     }
   }
@@ -22,7 +22,7 @@ export class PricePlotsComponent implements OnInit {
   }
 
   getStockPrice(): void {
-    this.priceService.getStockPrice('MSFT')
+    this.priceService.getStockPrice(this.stock.symbol)
       .subscribe(data => this.stock = { ...data });
   }
 }

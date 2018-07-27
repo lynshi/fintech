@@ -14,18 +14,17 @@ export class PriceService {
   constructor(private http: HttpClient) { }
 
   getStockPrice(symbol: string) : Observable<Stock> {
-    return this.getStockPriceFromIEX('MSFT').pipe(map(res => {
+    return this.getStockPriceFromIEX(symbol).pipe(map(res => {
       let stock : Stock;
       stock = {
         symbol: symbol,
         price: res[res.length - 1]['close']
       };
-      console.log(res[res.length - 1]);
       return stock;
     }));
   }
 
-  getStockPriceFromIEX(symbol: string) {
+  getStockPriceFromIEX(symbol: string) : Observable<any> {
     return this.http.get(this.iexStockUrl + symbol + '/chart/1d')
       .pipe(
         retry(3),
