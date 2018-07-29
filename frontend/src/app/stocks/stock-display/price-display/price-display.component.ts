@@ -16,25 +16,25 @@ import { Observable, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceDisplayComponent implements OnInit {
-  @Input() stockObservable$: Observable<Stock>;
+  @Input() stock;
   stockSymbol$: Observable<String>;
   stockPrice$: Observable<number>;
   
   constructor(private priceService: PriceService,
               private cdr: ChangeDetectorRef) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ngOnChanges() {
     this.getStockPrice();
   }
 
   getStockPrice(): void {
-    this.stockObservable$.subscribe(incomingStock => {
-      this.priceService.getStockPrice(incomingStock.symbol)
+    this.priceService.getStockPrice(this.stock.symbol)
       .subscribe(stockData => {
         this.stockSymbol$ = of(stockData.symbol);
         this.stockPrice$ = of(stockData.price);
         this.cdr.detectChanges();
       });
-    });
   }
 }

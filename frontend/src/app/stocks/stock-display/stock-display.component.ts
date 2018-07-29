@@ -1,17 +1,17 @@
-import {Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Stock } from "../stock";
 import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-stock-display',
   templateUrl: './stock-display.component.html',
-  styleUrls: ['./stock-display.component.css']
+  styleUrls: ['./stock-display.component.css'],
 })
 export class StockDisplayComponent implements OnInit {
-  stockCurrentlyDisplayed$: Observable<Stock>;
+  stockCurrentlyDisplayed: Stock;
   userSelectedStock: Stock;
 
-  constructor(private cdr: ChangeDetectorRef) { 
+  constructor() { 
     this.userSelectedStock = {
       symbol: '',
       price: -1
@@ -21,7 +21,6 @@ export class StockDisplayComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit() {
-    this.stockCurrentlyDisplayed$ = of(this.userSelectedStock);
-    this.cdr.detectChanges();
+    this.stockCurrentlyDisplayed = {...this.userSelectedStock};
   }
 }
