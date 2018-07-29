@@ -23,4 +23,10 @@ export class StockDisplayComponent implements OnInit {
   onSubmit() {
     this.stockCurrentlyDisplayed = {...this.userSelectedStock};
   }
+
+  keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      this.onSubmit();
+    }
+  }
 }

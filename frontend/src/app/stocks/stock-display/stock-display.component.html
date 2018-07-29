@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Select a stock</h1>
-  <form (ngSubmit)="onSubmit()" #stockForm="ngForm">
+  <form (ngSubmit)="onSubmit()" (keydown)="keyDownFunction($event)" #stockForm="ngForm">
     <div class="form-group">
       <label for="symbol">Symbol</label>
       <input type="text" class="form-control" id="symbol"
