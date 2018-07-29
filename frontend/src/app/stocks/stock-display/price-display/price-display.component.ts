@@ -1,13 +1,13 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
-  Component, EventEmitter,
+  ChangeDetectionStrategy,
+  Component,
   Input,
   OnInit,
-  Output
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Stock } from '../../stock';
 import { PriceService } from '../../price.service';
-import { StockSelectionFormComponent } from '../stock-selection-form/stock-selection-form.component'
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-price-display',
@@ -16,17 +16,25 @@ import { StockSelectionFormComponent } from '../stock-selection-form/stock-selec
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceDisplayComponent implements OnInit {
-  @Input() stock: Stock;
-  @Output() gotStockPrice = new EventEmitter<Stock>();
-
+  @Input() stockObservable$: Observable<Stock>;
+  stockSymbol$: Observable<String>;
+  stockPrice$: Observable<number>;
+  
   constructor(private priceService: PriceService,
-              private cd: ChangeDetectorRef) { }
+              private cdr: ChangeDetectorRef) { }
 
-  ngOnInit() { this.cd.detectChanges(); }
+  ngOnInit() {
+    this.getStockPrice();
+  }
 
   getStockPrice(): void {
-    this.priceService.getStockPrice(this.stock.symbol)
-      .subscribe(data => this.stock = { ...data });
-    this.gotStockPrice.emit(this.stock);
+    this.stockObservable$.subscribe(incomingStock => {
+      this.priceService.getStockPrice(incomingStock.symbol)
+      .subscribe(stockData => {
+        this.stockSymbol$ = of(stockData.symbol);
+        this.stockPrice$ = of(stockData.price);
+        this.cdr.detectChanges();
+      });
+    });
   }
 }

@@ -1,4 +1,4 @@
-<div class="container" *ngIf="stock">
-  <h2>{{stock?.symbol}}</h2>
-    <span *ngIf="stock">Price: </span>{{stock?.price}}
+<div class="container" *ngIf="stockPrice$">
+  <h2>{{stockSymbol$ | async}}</h2>
+  <span>Price: </span>{{stockPrice$ | async}}
 </div>

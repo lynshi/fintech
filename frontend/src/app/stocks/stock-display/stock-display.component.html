@@ -1,6 +1,16 @@
-<app-stock-selection-form
-  (stockSymbolSubmission)="onStockSymbolSubmitted($event)">
-</app-stock-selection-form>
-<app-price-display [stock]="stock" #priceDisplay
-  (gotStockPrice)="updateStock($event)">
-</app-price-display>
+<div class="container">
+  <h1>Select a stock</h1>
+  <form (ngSubmit)="onSubmit()" #stockForm="ngForm">
+    <div class="form-group">
+      <label for="symbol">Symbol</label>
+      <input type="text" class="form-control" id="symbol"
+             required
+             [(ngModel)]="userSelectedStock.symbol" name="symbol" placeholder="Stock Symbol">
+    </div>
+
+    <button type="submit" class="btn btn-success"
+            [disabled]="!stockForm.form.valid">Submit</button>
+
+  </form>
+</div>
+<app-price-display [stockObservable$]="stockCurrentlyDisplayed$" *ngIf="stockCurrentlyDisplayed$"></app-price-display>
