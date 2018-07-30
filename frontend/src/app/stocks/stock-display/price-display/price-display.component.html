@@ -2,7 +2,7 @@
   <h2>{{stockSymbol$ | async}}</h2>
   <span>Current price: </span>{{stockPrice$ | async}}
   <br>
-  <span>Last updated: </span>{{lastUpdated$ | async | date:'longDate'}}
+  <span>Last updated: </span>{{lastUpdated$ | async}}
 </div>
 
 <div *ngIf="displayChart"

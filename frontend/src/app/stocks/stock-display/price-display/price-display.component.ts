@@ -37,11 +37,16 @@ export class PriceDisplayComponent implements OnInit {
   }
 
   getStockPrice(): void {
-    this.priceService.getStockPrice(this.stock.symbol, this.range)
+    this.priceService.getStockPrice(this.stock.symbol, '1d')
       .subscribe(stockData => {
         this.stockSymbol$ = of(stockData[0].symbol);
         this.stockPrice$ = of(stockData[0].price);
         this.lastUpdated$ = of(stockData[0].lastUpdated);
+        this.cdr.detectChanges();
+      });
+
+    this.priceService.getStockPrice(this.stock.symbol, this.range)
+      .subscribe(stockData => {
         this.displayChart = true;
         this.cdr.detectChanges();
 
