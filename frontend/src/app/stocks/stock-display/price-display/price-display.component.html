@@ -2,3 +2,9 @@
   <h2>{{stockSymbol$ | async}}</h2>
   <span>Price: </span>{{stockPrice$ | async}}
 </div>
+
+<div *ngIf="displayChart"
+     class="center" style="position: relative;
+     height:40vh; width:80vw">
+  <canvas #canvas id="canvas">{{ priceChart }}</canvas>
+</div>
