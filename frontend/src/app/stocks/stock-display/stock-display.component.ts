@@ -11,10 +11,11 @@ export class StockDisplayComponent implements OnInit {
   stockCurrentlyDisplayed: Stock;
   userSelectedStock: Stock;
 
-  constructor() { 
+  constructor() {
     this.userSelectedStock = {
       symbol: '',
-      price: -1
+      price: -1,
+      lastUpdated: new Date()
     }
   }
 
@@ -22,6 +23,8 @@ export class StockDisplayComponent implements OnInit {
 
   onSubmit() {
     this.stockCurrentlyDisplayed = {...this.userSelectedStock};
+    this.stockCurrentlyDisplayed.symbol
+      = this.stockCurrentlyDisplayed.symbol.toUpperCase();
   }
 
   keyDownFunction(event) {
