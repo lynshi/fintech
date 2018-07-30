@@ -55,12 +55,12 @@ export class PriceService {
               year: 'numeric', month: 'short', day: 'numeric' }));
         }
         else {
-          let dateToPush = new Date(date);
-          dateToPush.setHours(17, 0);
-          time_arr.push((
-            dateToPush.toLocaleTimeString([], {
-              year: 'numeric', month: 'short', day: 'numeric',
-            })));
+          let timeStr = (new Date(date))
+            .toLocaleTimeString([], {
+              year: 'numeric', month: 'short', day: 'numeric' });
+          let timeStrSplit = timeStr.split(',');
+
+          time_arr.push(timeStrSplit[0] + ',' + timeStrSplit[1]);
         }
 
         price_arr.push(datum['close']);
