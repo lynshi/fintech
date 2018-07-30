@@ -18,6 +18,7 @@ import { Chart } from 'chart.js';
 })
 export class PriceDisplayComponent implements OnInit {
   @Input() stock: Stock;
+  @Input() range: string;
   stockSymbol$: Observable<String>;
   stockPrice$: Observable<number>;
   priceChart: Chart;
@@ -36,7 +37,7 @@ export class PriceDisplayComponent implements OnInit {
   }
 
   getStockPrice(): void {
-    this.priceService.getStockPrice(this.stock.symbol)
+    this.priceService.getStockPrice(this.stock.symbol, this.range)
       .subscribe(stockData => {
         this.stockSymbol$ = of(stockData[0].symbol);
         this.stockPrice$ = of(stockData[0].price);

@@ -13,38 +13,56 @@ export class PriceService {
 
   constructor(private http: HttpClient) { }
 
-  getStockPrice(symbol: string) : Observable<any[]> {
-    return this.getStockPriceFromIEX(symbol, '1d').pipe(map(res => {
+  getStockPrice(symbol: string, range:string) : Observable<any[]> {
+    return this.getStockPriceFromIEX(symbol, range).pipe(map(res => {
       let stock : Stock;
-
       let mostRecent = res[res.length - 1];
       let date = mostRecent['date'];
-      let year = date.substr(0, 4);
-      let month = date.substr(4, 2);
-      let day = date.substr(6, 2);
 
-      let minute = mostRecent['minute'];
-      let time = minute.split(':');
-      stock = {
-        symbol: symbol,
-        price: mostRecent['close'],
-        lastUpdated: new Date(year, month, day, time[0], time[1])
-      };
+      if ('minute' in mostRecent) {
+        let year = date.substr(0, 4);
+        let month = date.substr(4, 2) - 1;
+        let day = date.substr(6, 2);
+        let minute = mostRecent['minute'];
+        let time = minute.split(':');
+        stock = {
+          symbol: symbol,
+          price: mostRecent['close'],
+          lastUpdated: new Date(year, month, day, time[0], time[1])
+        };
+      }
+      else {
+        stock = {
+          symbol: symbol,
+          price: mostRecent['close'],
+          lastUpdated: new Date(date)
+        };
+      }
 
       let time_arr = [];
       let price_arr = [];
       res.forEach((datum) => {
         let date = datum['date'];
-        let year = date.substr(0, 4);
-        let month = date.substr(4, 2);
-        let day = date.substr(6, 2);
+        if ('minute' in datum) {
+          let year = date.substr(0, 4);
+          let month = date.substr(4, 2) - 1;
+          let day = date.substr(6, 2);
+          let minute = datum['minute'];
+          let time = minute.split(':');
 
-        let minute = datum['minute'];
-        let time = minute.split(':');
+          time_arr.push((new Date(year, month, day, time[0], time[1]))
+            .toLocaleTimeString([], {
+              year: 'numeric', month: 'short', day: 'numeric' }));
+        }
+        else {
+          let dateToPush = new Date(date);
+          dateToPush.setHours(17, 0);
+          time_arr.push((
+            dateToPush.toLocaleTimeString([], {
+              year: 'numeric', month: 'short', day: 'numeric',
+            })));
+        }
 
-        time_arr.push((new Date(year, month, day, time[0], time[1]))
-          .toLocaleTimeString('en', {
-            year: 'numeric', month: 'short', day: 'numeric' }));
         price_arr.push(datum['close']);
       });
 
@@ -52,8 +70,8 @@ export class PriceService {
     }));
   }
 
-  getStockPriceFromIEX(symbol: string, interval: string) : Observable<any> {
-    return this.http.get(this.iexStockUrl + symbol + '/chart/' + interval)
+  getStockPriceFromIEX(symbol: string, range: string) : Observable<any> {
+    return this.http.get(this.iexStockUrl + symbol + '/chart/' + range)
       .pipe(
         retry(3),
         catchError(PriceService.handleError)

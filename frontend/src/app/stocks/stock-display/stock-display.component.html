@@ -1,11 +1,22 @@
 <div class="container">
   <h1>Select a stock</h1>
-  <form (ngSubmit)="onSubmit()" (keydown)="keyDownFunction($event)" #stockForm="ngForm">
-    <div class="form-group">
-      <label for="symbol">Symbol</label>
-      <input type="text" class="form-control" id="symbol"
-             required
-             [(ngModel)]="userSelectedStock.symbol" name="symbol" placeholder="Stock Symbol">
+  <form (ngSubmit)="onSubmit()" (keydown)="keyDownFunction($event)"
+        #stockForm="ngForm">
+    <div class="row">
+      <div class="col-xs-9 form-group">
+        <label for="symbol">Symbol</label>
+        <input type="text" class="form-control" id="symbol"
+               required
+               [(ngModel)]="userSelectedStock.symbol" name="symbol"
+               placeholder="Stock Symbol">
+      </div>
+      <div class="col-xs-3 form-group">
+        <label for="range">Range</label>
+        <select class="form-control" id="range" required
+                [(ngModel)]="selectedRange" name="r">
+          <option *ngFor="let r of allowedRanges" [value]="r">{{r}}</option>
+        </select>
+      </div>
     </div>
 
     <button type="submit" class="btn btn-success"
@@ -13,4 +24,5 @@
 
   </form>
 </div>
-<app-price-display [stock]="stockCurrentlyDisplayed"></app-price-display>
+<app-price-display [stock]="stockCurrentlyDisplayed"
+                   [range]="currentRange"></app-price-display>
