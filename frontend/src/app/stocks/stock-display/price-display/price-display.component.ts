@@ -22,6 +22,7 @@ export class PriceDisplayComponent implements OnInit {
   stockPrice$: Observable<number>;
   priceChart: Chart;
   displayChart = false;
+  lastUpdated$: Observable<Date>;
 
   constructor(private priceService: PriceService,
               private cdr: ChangeDetectorRef) { }
@@ -39,8 +40,13 @@ export class PriceDisplayComponent implements OnInit {
       .subscribe(stockData => {
         this.stockSymbol$ = of(stockData[0].symbol);
         this.stockPrice$ = of(stockData[0].price);
+        this.lastUpdated$ = of(stockData[0].lastUpdated);
         this.displayChart = true;
         this.cdr.detectChanges();
+
+        if (this.priceChart) {
+          this.priceChart.destroy();
+        }
 
         this.priceChart = new Chart('canvas', {
           type: 'line',

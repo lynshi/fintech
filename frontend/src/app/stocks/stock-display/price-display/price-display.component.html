@@ -1,6 +1,8 @@
 <div class="container" *ngIf="stockPrice$">
   <h2>{{stockSymbol$ | async}}</h2>
-  <span>Price: </span>{{stockPrice$ | async}}
+  <span>Current price: </span>{{stockPrice$ | async}}
+  <br>
+  <span>Last updated: </span>{{lastUpdated$ | async}}
 </div>
 
 <div *ngIf="displayChart"

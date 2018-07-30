@@ -16,9 +16,19 @@ export class PriceService {
   getStockPrice(symbol: string) : Observable<any[]> {
     return this.getStockPriceFromIEX(symbol, '1d').pipe(map(res => {
       let stock : Stock;
+
+      let mostRecent = res[res.length - 1];
+      let date = mostRecent['date'];
+      let year = date.substr(0, 4);
+      let month = date.substr(4, 2);
+      let day = date.substr(6, 2);
+
+      let minute = mostRecent['minute'];
+      let time = minute.split(':');
       stock = {
         symbol: symbol,
-        price: res[res.length - 1]['close']
+        price: mostRecent['close'],
+        lastUpdated: new Date(year, month, day, time[0], time[1])
       };
 
       let time_arr = [];
