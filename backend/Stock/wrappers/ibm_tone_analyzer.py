@@ -6,6 +6,8 @@ from Stock.wrappers.apiCredentials import api_credentials
 
 
 class IBMToneAnalyzerWrapper:
+    high_likelihood_score_threshold = 0.75  # req > than
+
     def __init__(self):
         self.credentials = api_credentials['ibm-tone-analyzer']
         self.tone_analyzer = ToneAnalyzerV3(
