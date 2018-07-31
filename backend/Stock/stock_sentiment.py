@@ -10,9 +10,6 @@ class StockSentiment(Resource):
         self.ibm_sentiment_analyzer = IBMToneAnalyzerWrapper()
         self.news_api = NewsAPIWrapper()
 
-    def get(self, company_name):
-        return self.get_stock_sentiment(company_name), 200
-
     def get_stock_sentiment(self, company_name):
         news_data = self.news_api.get_news_for_stock(company_name)
         sentiment_holder = {}
