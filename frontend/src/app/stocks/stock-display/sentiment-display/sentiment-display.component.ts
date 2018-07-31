@@ -9,6 +9,7 @@ import { Observable, of } from 'rxjs';
 import { Stock } from '../../stock';
 import {IEXService} from "../../i-e-x.service";
 import {Sentiment} from "./sentiment";
+import {SentimentService} from "../../sentiment.service";
 
 @Component({
   selector: 'app-sentiment-display',
@@ -23,6 +24,7 @@ export class SentimentDisplayComponent implements OnInit {
   stockCompanyName$: Observable<string>;
 
   constructor(private iexService: IEXService,
+              private sentimentService: SentimentService,
               private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -39,6 +41,11 @@ export class SentimentDisplayComponent implements OnInit {
       companyName => {
         this.stockCompanyName$ = of(companyName);
         this.cdr.detectChanges();
+
+        this.sentimentService.getStockSentiment(companyName).subscribe(
+          sentiments => {
+            console.log(sentiments);
+          })
       });
   }
 }
