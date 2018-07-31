@@ -20,8 +20,9 @@ export class SentimentDisplayComponent implements OnInit {
 
   @Input() stock: Stock;
   sentiments: Observable<Sentiment[]>;
+  stockCompanyName: string;
 
-  constructor(private priceService: IEXService,
+  constructor(private iexService: IEXService,
               private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -29,8 +30,15 @@ export class SentimentDisplayComponent implements OnInit {
 
   ngOnChanges() {
     if (this.stock) {
-      console.log(this.stock);
+      this.getStockSentiment();
     }
   }
 
+  getStockSentiment() : void {
+    this.iexService.getCompanyName(this.stock.symbol).subscribe(
+      companyName => {
+        this.stockCompanyName = companyName;
+        console.log(this.stockCompanyName);
+      });
+  }
 }

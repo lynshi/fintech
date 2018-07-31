@@ -13,6 +13,20 @@ export class IEXService {
 
   constructor(private http: HttpClient) { }
 
+  getCompanyName(symbol: string) : Observable<string> {
+    return this.getCompanyNameFromIEX(symbol).pipe(map(res => {
+      return res['companyName'];
+    }));
+  }
+
+  getCompanyNameFromIEX(symbol: string) : Observable<any> {
+    return this.http.get(this.iexStockUrl + symbol + '/company')
+      .pipe(
+        retry(3),
+        catchError(IEXService.handleError)
+      );
+  }
+
   getStockPrice(symbol: string, range:string) : Observable<any[]> {
     return this.getStockPriceFromIEX(symbol, range).pipe(map(res => {
       let stock: Stock;
