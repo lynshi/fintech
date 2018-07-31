@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Api, Resource
+from flask_restful import Api
 
 from Stock.stock_sentiment import StockSentiment
 
