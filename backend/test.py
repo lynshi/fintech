@@ -1,7 +1,4 @@
-from Stock.wrappers.alphaventure import AlphaVantageAPIWrapper
+from Stock.wrappers.ibm_tone_analyzer import IBMToneAnalyzerWrapper
 
-
-response = AlphaVantageAPIWrapper.get_intra_data_stock_price_data(symbol='MSFT',
-                                                                  interval=
-                                                                  '5min')
-print(response.json())
+ibm = IBMToneAnalyzerWrapper()
+ibm.analyze_sentiment('Hi, today was a great day! I really enjoyed eating ice cream.')
