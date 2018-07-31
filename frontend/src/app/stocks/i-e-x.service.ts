@@ -8,7 +8,7 @@ import { Stock } from './stock'
 @Injectable({
   providedIn: 'root'
 })
-export class PriceService {
+export class IEXService {
   iexStockUrl = 'https://api.iextrading.com/1.0/stock/';
 
   constructor(private http: HttpClient) { }
@@ -74,7 +74,7 @@ export class PriceService {
     return this.http.get(this.iexStockUrl + symbol + '/chart/' + range)
       .pipe(
         retry(3),
-        catchError(PriceService.handleError)
+        catchError(IEXService.handleError)
       );
   }
 

@@ -1,4 +1,4 @@
-<div class="container" *ngIf="stockPrice$">
+<div class="center" *ngIf="stockPrice$">
   <h2>{{stockSymbol$ | async}}</h2>
   <span>Current price: </span>{{stockPrice$ | async}}
   <br>
@@ -7,7 +7,7 @@
 
 <div *ngIf="displayChart"
      class="center" style="position: relative;
-     height:40vh; width:80vw">
+     height:40vh; width:40vw">
   <canvas #canvas id="canvas">{{ priceChart }}</canvas>
   <span>Data provided for free by
     <a href="https://iextrading.com/developer/" target="_blank">IEX</a>.

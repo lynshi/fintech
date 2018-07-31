@@ -24,5 +24,12 @@
 
   </form>
 </div>
-<app-price-display [stock]="stockCurrentlyDisplayed"
-                   [range]="currentRange"></app-price-display>
+
+<div class="col-xs-9">
+  <app-price-display [stock]="stockCurrentlyDisplayed"
+                     [range]="currentRange"></app-price-display>
+</div>
+<div class="col-xs-3">
+  <app-sentiment-display [stock]="stockCurrentlyDisplayed">
+  </app-sentiment-display>
+</div>

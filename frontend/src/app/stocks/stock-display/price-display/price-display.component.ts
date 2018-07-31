@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { Stock } from '../../stock';
-import { PriceService } from '../../price.service';
+import { IEXService } from '../../i-e-x.service';
 import { Observable, of } from 'rxjs';
 import { Chart } from 'chart.js';
 
@@ -25,7 +25,7 @@ export class PriceDisplayComponent implements OnInit {
   displayChart = false;
   lastUpdated$: Observable<Date>;
 
-  constructor(private priceService: PriceService,
+  constructor(private priceService: IEXService,
               private cdr: ChangeDetectorRef) { }
 
   ngOnInit() { }
