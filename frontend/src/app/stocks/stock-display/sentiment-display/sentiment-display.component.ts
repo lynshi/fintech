@@ -19,8 +19,8 @@ import {Sentiment} from "./sentiment";
 export class SentimentDisplayComponent implements OnInit {
 
   @Input() stock: Stock;
-  sentiments: Observable<Sentiment[]>;
-  stockCompanyName: string;
+  sentiments$: Observable<Sentiment[]>;
+  stockCompanyName$: Observable<string>;
 
   constructor(private iexService: IEXService,
               private cdr: ChangeDetectorRef) { }
@@ -37,8 +37,8 @@ export class SentimentDisplayComponent implements OnInit {
   getStockSentiment() : void {
     this.iexService.getCompanyName(this.stock.symbol).subscribe(
       companyName => {
-        this.stockCompanyName = companyName;
-        console.log(this.stockCompanyName);
+        this.stockCompanyName$ = of(companyName);
+        this.cdr.detectChanges();
       });
   }
 }
