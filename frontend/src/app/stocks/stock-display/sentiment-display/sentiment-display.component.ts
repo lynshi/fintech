@@ -18,9 +18,8 @@ import {SentimentService} from "../../sentiment.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SentimentDisplayComponent implements OnInit {
-
   @Input() stock: Stock;
-  sentiments$: Observable<Sentiment[]>;
+  sentiments: Sentiment[];
   stockCompanyName$: Observable<string>;
 
   constructor(private iexService: IEXService,
@@ -44,7 +43,13 @@ export class SentimentDisplayComponent implements OnInit {
 
         this.sentimentService.getStockSentiment(companyName).subscribe(
           sentiments => {
+            this.sentiments = [];
             console.log(sentiments);
+            for (let sentiment in sentiments) {
+              this.sentiments.push(new Sentiment(sentiment,
+                sentiments[sentiment]));
+            }
+            this.cdr.detectChanges();
           })
       });
   }

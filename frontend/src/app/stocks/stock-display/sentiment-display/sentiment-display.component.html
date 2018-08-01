@@ -1,3 +1,6 @@
 <div class="center" *ngIf="stockCompanyName$">
   <h2>Sentiment for {{stockCompanyName$ | async}}</h2>
+  <li *ngFor="let sentiment of sentiments">
+    {{ sentiment.name }}: {{ sentiment.value }}
+  </li>
 </div>
