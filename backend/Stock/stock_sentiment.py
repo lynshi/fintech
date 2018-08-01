@@ -34,9 +34,7 @@ class StockSentiment(Resource):
                     += tone['score']
 
         for tone in sentiment_holder:
-            sentiment_result[tone] = {
-                'sentiment': sentiment_holder[tone]['sentiment']
-                             / sentiment_holder[tone]['count']
-            }
+            sentiment_result[tone] = sentiment_holder[tone]['sentiment'] \
+                                     / sentiment_holder[tone]['count']
 
         return sentiment_result
