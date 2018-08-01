@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, retry} from "rxjs/operators";
-import {throwError} from "rxjs/index";
+import {Observable, throwError} from "rxjs/index";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ export class SentimentService {
 
   constructor(private http: HttpClient) { }
 
-  getStockSentiment(companyName: string) {
+  getStockSentiment(companyName: string) : Observable<any> {
+    companyName = encodeURIComponent(companyName);
     return this.http.get(this.sentimentServiceUrl + companyName)
       .pipe(
         retry(3),
