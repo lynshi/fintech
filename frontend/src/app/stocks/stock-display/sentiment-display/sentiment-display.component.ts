@@ -39,11 +39,11 @@ export class SentimentDisplayComponent implements OnInit {
     this.iexService.getCompanyName(this.stock.symbol).subscribe(
       companyName => {
         this.stockCompanyName$ = of(companyName);
+        this.sentiments = [];
         this.cdr.detectChanges();
 
         this.sentimentService.getStockSentiment(companyName).subscribe(
           sentiments => {
-            this.sentiments = [];
             console.log(sentiments);
             for (let sentiment in sentiments) {
               this.sentiments.push(new Sentiment(sentiment,

@@ -1,6 +1,10 @@
 <div class="center" *ngIf="stockCompanyName$">
-  <h2>Sentiment for {{stockCompanyName$ | async}}</h2>
+  <h2>Today's sentiment for {{stockCompanyName$ | async}}</h2>
   <li *ngFor="let sentiment of sentiments">
     {{ sentiment.name }}: {{ sentiment.value }}
   </li>
+  <span>Powered by
+    <a href="https://newsapi.org/" target="_blank">NewsAPI.org</a> and
+    <a href="https://www.ibm.com/watson/services/tone-analyzer/"
+       target="_blank">IBM Watson Tone Analyzer</a></span>
 </div>
