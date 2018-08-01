@@ -44,7 +44,6 @@ export class SentimentDisplayComponent implements OnInit {
 
         this.sentimentService.getStockSentiment(companyName).subscribe(
           sentiments => {
-            console.log(sentiments);
             for (let sentiment in sentiments) {
               this.sentiments.push(new Sentiment(sentiment,
                 sentiments[sentiment]));
