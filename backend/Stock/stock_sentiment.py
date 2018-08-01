@@ -15,12 +15,12 @@ class StockSentiment(Resource):
         sentiment_holder = {}
         sentiment_result = {}
         for article in news_data['articles']:
-            try:
-                sentiment = self.ibm_sentiment_analyzer.analyze_sentiment(
-                    article['description']
-                )['document_tone']
-            except KeyError:
+            sentiment = self.ibm_sentiment_analyzer.analyze_sentiment(
+                article['description'])
+            if 'document_tone' not in sentiment:
                 continue
+
+            sentiment = sentiment['document_tone']
 
             if len(sentiment['tones']) == 0:
                 continue

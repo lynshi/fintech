@@ -17,5 +17,7 @@ class IBMToneAnalyzerWrapper:
         )
 
     def analyze_sentiment(self, text):
+        if text == '':
+            return {}
         tone_input = ToneInput(text)
         return self.tone_analyzer.tone(tone_input, 'application/json')
