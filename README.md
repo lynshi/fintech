@@ -1,4 +1,4 @@
 # fintech
 Example usage
 
-![Screenshot of display](example.png)
+![Screenshot of display](docs/img/example.PNG)
