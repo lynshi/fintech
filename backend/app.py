@@ -17,4 +17,4 @@ def get_stock_sentiment(company_name):
     return jsonify(ss.get_stock_sentiment(company_name))
 
 
-app.run(debug=True)
+app.run(debug=True, host='0.0.0.0')
