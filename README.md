@@ -7,7 +7,7 @@
 1. Install [Docker](https://www.docker.com/get-started). If on Linux, you'll need to install [Docker Compose](https://docs.docker.com/compose/install/) separately. 
 2. Clone this repository.
 3. Open a terminal (Docker Quickstart Terminal if on Windows).
-5. Run `docker-compose up` in the root directory of the cloned repository.
+5. Run `docker-compose up` in the root directory of the cloned repository. You may need to run `docker-compose build` first.
 6. Navigate a web browser to http://localhost:4200. If using Docker Toolbox, you will need to navigate to http://192.168.99.100:4200/ instead; however, currently the backend does not work with Docker Toolbox.
 
 ## How it works
