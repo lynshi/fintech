@@ -1,4 +1,4 @@
-# fintech
+# Stock Tracker
 ## Example of the running web app
 
 ![Screenshot of display](docs/img/example.PNG)
